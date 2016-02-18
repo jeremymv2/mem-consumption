@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Growth Factor', 'Max RSS (MB)', 'User Time (seconds)', 'CPU (%)' ],
+          ['empty run_list', 68, 2.29,  78],
+          ['defaults', 302, 132, 73],
+          ['1.8', 282, 130, 56],
+          ['1.5', 210, 132, 59],
+          ['1.2', 223, 138, 61],
+          ['1.1', 208, 141, 62],
+          ['1.01', 187, 152, 63]
+        ]);
+
+        var options = {
+          chart: {
+            title: 'Chef Client Memory Usage',
+            subtitle: 'Client: 12.7.2, Server: 12.4.1, Node OS: CentOS 6.6',
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data, options);
+      }
+
+    </script>
+  </head>
+  <body>
+    <div id="columnchart_material" style="width: 900px; height: 500px;"></div>
+    <br><br>
+    <p><b>ENV variables toggled in unison, all set to the same value:</b>
+<pre>
+RUBY_GC_HEAP_GROWTH_FACTOR
+RUBY_GC_MALLOC_LIMIT_GROWTH_FACTOR
+RUBY_GC_OLDMALLOC_LIMIT_GROWTH_FACTOR
+RUBY_GC_HEAP_OLDOBJECT_LIMIT_FACTOR
+</pre>
+    <br>
+    <p><b>run_list from recipe:</b>
+<pre>
+include_recipe 'chef-client::config'
+include_recipe 'rsyslog'
+include_recipe 'sysctl'
+include_recipe 'ark'
+include_recipe 'selinux'
+include_recipe 'ntp'
+hostsfile_entry '2.3.4.5' do
+  hostname  'www.example.com'
+  unique    true
+end
+include_recipe 'git'
+include_recipe 'apt'
+include_recipe 'java'
+include_recipe 'apache2'
+include_recipe 'yum'
+include_recipe 'chef-client'
+include_recipe 'nodejs'
+include_recipe 'openssl'
+include_recipe 'postfix'
+include_recipe 'cron'
+include_recipe 'logrotate'
+include_recipe 'vim'
+</pre>
+  </body>
+</html>
